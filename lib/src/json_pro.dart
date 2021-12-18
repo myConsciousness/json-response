@@ -82,11 +82,10 @@ class JsonPro implements Json {
 
     for (final json in _resource[key]) {
       if (json is List) {
-        for (final childJson in json) {
-          jsonList.add(
-            JsonPro.fromMap(value: childJson),
-          );
-        }
+        _getJsonListRecursively(
+          childJsonList: json,
+          jsonList: jsonList,
+        );
       } else {
         jsonList.add(
           JsonPro.fromMap(value: json),
@@ -95,6 +94,24 @@ class JsonPro implements Json {
     }
 
     return jsonList;
+  }
+
+  void _getJsonListRecursively({
+    required dynamic childJsonList,
+    required List<JsonPro> jsonList,
+  }) {
+    for (final json in childJsonList) {
+      if (json is List) {
+        _getJsonListRecursively(
+          childJsonList: json,
+          jsonList: jsonList,
+        );
+      } else {
+        jsonList.add(
+          JsonPro.fromMap(value: json),
+        );
+      }
+    }
   }
 
   @override
