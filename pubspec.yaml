@@ -1,5 +1,5 @@
 name: json_pro
-description: A starting point for Dart libraries or applications.
+description: A most easily usable JSON wrapper library in Dart. With JsonPro, you can easily and safely handle JSON on your application.
 version: 0.0.1
 homepage: https://github.com/myConsciousness/json-pro
 

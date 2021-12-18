@@ -9,7 +9,7 @@ import 'dart:typed_data';
 // Project imports:
 import 'package:json_pro/src/json.dart';
 
-/// It provides safe and convenient features about JSON handling.
+/// This class is an implementation of the [Json] class.
 class JsonPro implements Json {
   /// Returns the new instance of [JsonPro] from json map.
   JsonPro.fromMap({

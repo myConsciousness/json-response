@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:typed_data';
-
 import 'package:json_pro/json_pro.dart';
 
 void main() {
@@ -42,6 +41,11 @@ void main() {
       ]
     },
   );
+
+  if (testJson.isEmpty) {
+    // Do something when json is empty.
+    return;
+  }
 
   // It provides features to safely get values from JSON.
   print(testJson.getStringValues(key: 'testValueList'));
