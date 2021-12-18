@@ -20,18 +20,39 @@ void main() {
 
   final testJson = Json.fromMap(
     value: {
-      'test': ['test1', 'test2'],
-      'test3': '{"tes4": "test5"}',
-      'test6': [
+      'testValueList': ['value1', 'value2'],
+      'testJsonString': '{"key1": "value2"}',
+      'testJsonList': [
         {
-          'test1': 'something',
-          'test2': 'something2',
+          'key1': 'value1',
+          'key2': 'value2',
         }
       ],
+      'testRecursiveJsonList': [
+        [
+          {
+            'key1': 'value1',
+            'key2': 'value2',
+          }
+        ],
+        {
+          'key3': 'value3',
+          'key4': 'value4',
+        }
+      ]
     },
   );
 
-  print(testJson.getStringValues(key: 'test'));
-  print(testJson.getJson(key: 'test3'));
-  print(testJson.getJsonList(key: 'test6'));
+  // It provides features to safely get values from JSON.
+  print(testJson.getStringValues(key: 'testValueList'));
+
+  // You can easily get a JSON object or JSON list associated with a key.
+  // If the JSON object associated with the key is a string,
+  // it will be automatically detected and parsed into a JSON object.
+  print(testJson.getJson(key: 'testJsonString'));
+  print(testJson.getJsonList(key: 'testJsonList'));
+
+  // If your JSON list is nested, that's okay!
+  // All JSON expressions associated with a key will be returned as JSON objects.
+  print(testJson.getJsonList(key: 'testRecursiveJsonList'));
 }
