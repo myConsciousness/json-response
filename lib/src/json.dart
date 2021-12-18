@@ -28,25 +28,25 @@ abstract class Json {
       JsonPro.fromBytes(bytes: bytes);
 
   /// Returns the string value linked to the [key], otherwise [defaultValue].
-  String getStringValue({
+  String getString({
     required String key,
     String defaultValue = '',
   });
 
   /// Returns the int value linked to the [key], otherwise [defaultValue].
-  int getIntValue({
+  int getInt({
     required String key,
     int defaultValue = -1,
   });
 
   /// Returns the double value linked to the [key], otherwise [defaultValue].
-  double getDoubleValue({
+  double getDouble({
     required String key,
     double defaultValue = -1.0,
   });
 
   /// Returns the bool value linked to the [key], otherwise [defaultValue].
-  bool getBoolValue({
+  bool getBool({
     required String key,
     bool defaultValue = false,
   });
@@ -62,6 +62,9 @@ abstract class Json {
 
   /// Returns the int value list linked to the [key], otherwise empty list.
   List<int> getIntValues({required String key});
+
+  /// Returns the double value list linked to the [key], otherwise empty list.
+  List<double> getDoubleValues({required String key});
 
   /// Returns true if json contains key linked to [key] passed as an argument.
   bool containsKey({required String key});

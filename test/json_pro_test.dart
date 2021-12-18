@@ -23,6 +23,7 @@ void main() {
   _testGetStringValue();
   _testGetIntValue();
   _testGetDoubleValue();
+  _testGetDoubleValues();
   _testGetBoolValue();
   _testGetStringValues();
   _testGetIntValues();
@@ -36,14 +37,14 @@ void main() {
 void _testFromJsonString() {
   test('Test fromJsonString.', () {
     final json = Json.fromString(value: '{"test": true}');
-    expect(json.getBoolValue(key: 'test'), true);
+    expect(json.getBool(key: 'test'), true);
   });
 }
 
 void _testFromJsonMap() {
   test('Test fromJsonMap.', () {
     final json = Json.fromMap(value: {"test": true});
-    expect(json.getBoolValue(key: 'test'), true);
+    expect(json.getBool(key: 'test'), true);
   });
 }
 
@@ -107,10 +108,10 @@ void _testGetStringValue() {
   test('Test getStringValue.', () {
     final json = Json.fromMap(value: {'test': 'success'});
     expect(json.isEmpty, false);
-    expect(json.getStringValue(key: 'test'), 'success');
-    expect(json.getStringValue(key: 'not_exist'), '');
-    expect(json.getStringValue(key: 'not_exist', defaultValue: 'default'),
-        'default');
+    expect(json.getString(key: 'test'), 'success');
+    expect(json.getString(key: 'not_exist'), '');
+    expect(
+        json.getString(key: 'not_exist', defaultValue: 'default'), 'default');
   });
 }
 
@@ -118,9 +119,9 @@ void _testGetIntValue() {
   test('Test getIntValue.', () {
     final json = Json.fromMap(value: {'test': 1});
     expect(json.isEmpty, false);
-    expect(json.getIntValue(key: 'test'), 1);
-    expect(json.getIntValue(key: 'not_exist'), -1);
-    expect(json.getIntValue(key: 'not_exist', defaultValue: 0), 0);
+    expect(json.getInt(key: 'test'), 1);
+    expect(json.getInt(key: 'not_exist'), -1);
+    expect(json.getInt(key: 'not_exist', defaultValue: 0), 0);
   });
 }
 
@@ -128,9 +129,19 @@ void _testGetDoubleValue() {
   test('Test getDoubleValue.', () {
     final json = Json.fromMap(value: {'test': 1.0});
     expect(json.isEmpty, false);
-    expect(json.getDoubleValue(key: 'test'), 1.0);
-    expect(json.getDoubleValue(key: 'not_exist'), -1.0);
-    expect(json.getDoubleValue(key: 'not_exist', defaultValue: 0.0), 0.0);
+    expect(json.getDouble(key: 'test'), 1.0);
+    expect(json.getDouble(key: 'not_exist'), -1.0);
+    expect(json.getDouble(key: 'not_exist', defaultValue: 0.0), 0.0);
+  });
+}
+
+void _testGetDoubleValues() {
+  test('Test getDoubleValues.', () {
+    final json = Json.fromMap(value: {
+      'test': [1.0, -0.1, 0.0]
+    });
+    expect(json.isEmpty, false);
+    expect(json.getDoubleValues(key: 'test'), [1.0, -0.1, 0.0]);
   });
 }
 
@@ -138,9 +149,9 @@ void _testGetBoolValue() {
   test('Test getBoolValue.', () {
     final json = Json.fromMap(value: {'test': true});
     expect(json.isEmpty, false);
-    expect(json.getBoolValue(key: 'test'), true);
-    expect(json.getBoolValue(key: 'not_exist'), false);
-    expect(json.getBoolValue(key: 'not_exist', defaultValue: true), true);
+    expect(json.getBool(key: 'test'), true);
+    expect(json.getBool(key: 'not_exist'), false);
+    expect(json.getBool(key: 'not_exist', defaultValue: true), true);
   });
 }
 
@@ -175,7 +186,7 @@ void _testGetJsonFromJsonString() {
 
     final childJson = json.getJson(key: 'test1');
     expect(childJson.isEmpty, false);
-    expect(childJson.getBoolValue(key: 'test2'), true);
+    expect(childJson.getBool(key: 'test2'), true);
   });
 }
 
@@ -188,7 +199,7 @@ void _testGetJsonFromJsonMap() {
 
     final childJson = json.getJson(key: 'test1');
     expect(childJson.isEmpty, false);
-    expect(childJson.getBoolValue(key: 'test2'), true);
+    expect(childJson.getBool(key: 'test2'), true);
   });
 }
 
@@ -217,12 +228,12 @@ void _integrationTest() {
 
     expect(json.isEmpty, false);
 
-    expect(json.getIntValue(key: 'strength_bars'), 1);
-    expect(json.getStringValue(key: 'infinitive'), '');
-    expect(json.getStringValue(key: 'normalized_string'), 'Chuang ');
-    expect(json.getStringValue(key: 'pos'), '');
-    expect(json.getIntValue(key: 'last_practiced_ms'), 1573347371000);
-    expect(json.getStringValue(key: 'skill'), 'Home 1');
+    expect(json.getInt(key: 'strength_bars'), 1);
+    expect(json.getString(key: 'infinitive'), '');
+    expect(json.getString(key: 'normalized_string'), 'Chuang ');
+    expect(json.getString(key: 'pos'), '');
+    expect(json.getInt(key: 'last_practiced_ms'), 1573347371000);
+    expect(json.getString(key: 'skill'), 'Home 1');
     expect(
       json.getStringValues(key: 'related_lexemes'),
       [
@@ -231,19 +242,19 @@ void _integrationTest() {
       ],
     );
     expect(json.getIntValues(key: 'test_int_values'), [1111, 2222]);
-    expect(json.getStringValue(key: 'last_practiced'), '2019-11-10T00:56:11Z');
-    expect(json.getDoubleValue(key: 'strength'), 0.22);
-    expect(json.getStringValue(key: 'skill_url_title'), 'Home-1');
-    expect(json.getStringValue(key: 'gender'), '');
+    expect(json.getString(key: 'last_practiced'), '2019-11-10T00:56:11Z');
+    expect(json.getDouble(key: 'strength'), 0.22);
+    expect(json.getString(key: 'skill_url_title'), 'Home-1');
+    expect(json.getString(key: 'gender'), '');
     expect(
-      json.getStringValue(key: 'id'),
+      json.getString(key: 'id'),
       'f763b975c30e465d48f3eccbbdd8843a',
     );
     expect(
-      json.getStringValue(key: 'lexeme_id'),
+      json.getString(key: 'lexeme_id'),
       'f763b975c30e465d48f3eccbbdd8843a',
     );
-    expect(json.getStringValue(key: 'word_string'), '窓');
-    expect(json.getBoolValue(key: 'test_bool'), true);
+    expect(json.getString(key: 'word_string'), '窓');
+    expect(json.getBool(key: 'test_bool'), true);
   });
 }

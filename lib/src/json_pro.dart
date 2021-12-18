@@ -14,48 +14,48 @@ class JsonPro implements Json {
   /// Returns the new instance of [JsonPro] from json map.
   JsonPro.fromMap({
     required Map<String, dynamic> value,
-  }) : jsonResource = value;
+  }) : _resource = value;
 
   /// Returns the new instance of [JsonPro] from json string.
   JsonPro.fromString({
     required String value,
-  }) : jsonResource = jsonDecode(value);
+  }) : _resource = jsonDecode(value);
 
   /// Returns the new instance of [JsonPro] from raw bytes.
   JsonPro.fromBytes({
     required Uint8List bytes,
-  }) : jsonResource = jsonDecode(utf8.decode(bytes));
+  }) : _resource = jsonDecode(utf8.decode(bytes));
 
   /// The json
-  final Map<String, dynamic> jsonResource;
+  final Map<String, dynamic> _resource;
 
   @override
-  String getStringValue({
+  String getString({
     required String key,
     String defaultValue = '',
   }) =>
-      jsonResource[key] ?? defaultValue;
+      _resource[key] ?? defaultValue;
 
   @override
-  int getIntValue({
+  int getInt({
     required String key,
     int defaultValue = -1,
   }) =>
-      jsonResource[key] ?? defaultValue;
+      _resource[key] ?? defaultValue;
 
   @override
-  double getDoubleValue({
+  double getDouble({
     required String key,
     double defaultValue = -1.0,
   }) =>
-      jsonResource[key] ?? defaultValue;
+      _resource[key] ?? defaultValue;
 
   @override
-  bool getBoolValue({
+  bool getBool({
     required String key,
     bool defaultValue = false,
   }) =>
-      jsonResource[key] ?? defaultValue;
+      _resource[key] ?? defaultValue;
 
   @override
   JsonPro getJson({required String key}) {
@@ -63,7 +63,7 @@ class JsonPro implements Json {
       return JsonPro.fromMap(value: {});
     }
 
-    final value = jsonResource[key] ?? <String, dynamic>{};
+    final value = _resource[key] ?? <String, dynamic>{};
 
     if (value is String) {
       return JsonPro.fromString(value: value);
@@ -80,7 +80,7 @@ class JsonPro implements Json {
 
     final jsonList = <JsonPro>[];
 
-    for (final json in jsonResource[key]) {
+    for (final json in _resource[key]) {
       if (json is List) {
         for (final childJson in json) {
           jsonList.add(
@@ -105,7 +105,7 @@ class JsonPro implements Json {
 
     final values = <String>[];
 
-    for (final value in jsonResource[key]) {
+    for (final value in _resource[key]) {
       values.add(value);
     }
 
@@ -120,7 +120,7 @@ class JsonPro implements Json {
 
     final values = <int>[];
 
-    for (final value in jsonResource[key]) {
+    for (final value in _resource[key]) {
       values.add(value);
     }
 
@@ -128,17 +128,32 @@ class JsonPro implements Json {
   }
 
   @override
-  bool containsKey({required String key}) => jsonResource.containsKey(key);
+  List<double> getDoubleValues({required String key}) {
+    if (!containsKey(key: key)) {
+      return <double>[];
+    }
+
+    final values = <double>[];
+
+    for (final value in _resource[key]) {
+      values.add(value);
+    }
+
+    return values;
+  }
 
   @override
-  Set<String> get keySet => jsonResource.keys.toSet();
+  bool containsKey({required String key}) => _resource.containsKey(key);
 
   @override
-  bool get isEmpty => jsonResource.isEmpty;
+  Set<String> get keySet => _resource.keys.toSet();
 
   @override
-  bool get isNotEmpty => jsonResource.isNotEmpty;
+  bool get isEmpty => _resource.isEmpty;
 
   @override
-  String toString() => jsonResource.toString();
+  bool get isNotEmpty => _resource.isNotEmpty;
+
+  @override
+  String toString() => _resource.toString();
 }
