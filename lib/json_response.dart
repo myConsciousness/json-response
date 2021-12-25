@@ -4,4 +4,4 @@
 
 library json_pro;
 
-export 'src/json.dart';
+export 'src/json_response.dart';

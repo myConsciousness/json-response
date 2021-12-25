@@ -6,9 +6,9 @@
 import 'package:test/test.dart';
 
 // Project imports:
-import 'package:json_pro/json_pro.dart';
+import 'package:json_response/json_response.dart';
 
-/// This is a test class for [Json].
+/// This is a test class for [JsonResponse].
 void main() {
   _testFromJsonString();
   _testFromJsonMap();
@@ -36,49 +36,49 @@ void main() {
 
 void _testFromJsonString() {
   test('Test fromJsonString.', () {
-    final json = Json.fromString(value: '{"test": true}');
+    final json = JsonResponse.fromString(value: '{"test": true}');
     expect(json.getBool(key: 'test'), true);
   });
 }
 
 void _testFromJsonMap() {
   test('Test fromJsonMap.', () {
-    final json = Json.fromMap(value: {"test": true});
+    final json = JsonResponse.fromMap(value: {"test": true});
     expect(json.getBool(key: 'test'), true);
   });
 }
 
 void _testIsEmptyWhenJsonIsNotEmpty() {
   test('Test isEmpty when JSON is not empty.', () {
-    final json = Json.fromMap(value: {'test': true});
+    final json = JsonResponse.fromMap(value: {'test': true});
     expect(json.isEmpty, false);
   });
 }
 
 void _testIsEmptyWhenJsonIsEmpty() {
   test('Test isEmpty when JSON is empty.', () {
-    final json = Json.fromMap(value: {});
+    final json = JsonResponse.fromMap(value: {});
     expect(json.isEmpty, true);
   });
 }
 
 void _testIsNotEmptyWhenJsonIsNotEmpty() {
   test('Test isNotEmpty when JSON is not empty.', () {
-    final json = Json.fromMap(value: {'test': true});
+    final json = JsonResponse.fromMap(value: {'test': true});
     expect(json.isNotEmpty, true);
   });
 }
 
 void _testIsNotEmptyWhenJsonIsEmpty() {
   test('Test isNotEmpty when JSON is empty.', () {
-    final json = Json.fromMap(value: {});
+    final json = JsonResponse.fromMap(value: {});
     expect(json.isNotEmpty, false);
   });
 }
 
 void _testContainsKey() {
   test('Test containsKey', () {
-    final json = Json.fromMap(value: {
+    final json = JsonResponse.fromMap(value: {
       'test': {'test2': true},
       'test3': [
         {'test4': 1}
@@ -95,7 +95,7 @@ void _testContainsKey() {
 
 void _testKeySet() {
   test('Test keySet', () {
-    final json = Json.fromMap(
+    final json = JsonResponse.fromMap(
       value: {'test1': '', 'test2': '', 'test5': ''},
     );
 
@@ -106,7 +106,7 @@ void _testKeySet() {
 
 void _testGetStringValue() {
   test('Test getStringValue.', () {
-    final json = Json.fromMap(value: {'test': 'success'});
+    final json = JsonResponse.fromMap(value: {'test': 'success'});
     expect(json.isEmpty, false);
     expect(json.getString(key: 'test'), 'success');
     expect(json.getString(key: 'not_exist'), '');
@@ -117,7 +117,7 @@ void _testGetStringValue() {
 
 void _testGetIntValue() {
   test('Test getIntValue.', () {
-    final json = Json.fromMap(value: {'test': 1});
+    final json = JsonResponse.fromMap(value: {'test': 1});
     expect(json.isEmpty, false);
     expect(json.getInt(key: 'test'), 1);
     expect(json.getInt(key: 'not_exist'), -1);
@@ -127,7 +127,7 @@ void _testGetIntValue() {
 
 void _testGetDoubleValue() {
   test('Test getDoubleValue.', () {
-    final json = Json.fromMap(value: {'test': 1.0});
+    final json = JsonResponse.fromMap(value: {'test': 1.0});
     expect(json.isEmpty, false);
     expect(json.getDouble(key: 'test'), 1.0);
     expect(json.getDouble(key: 'not_exist'), -1.0);
@@ -137,7 +137,7 @@ void _testGetDoubleValue() {
 
 void _testGetDoubleValues() {
   test('Test getDoubleValues.', () {
-    final json = Json.fromMap(value: {
+    final json = JsonResponse.fromMap(value: {
       'test': [1.0, -0.1, 0.0]
     });
     expect(json.isEmpty, false);
@@ -147,7 +147,7 @@ void _testGetDoubleValues() {
 
 void _testGetBoolValue() {
   test('Test getBoolValue.', () {
-    final json = Json.fromMap(value: {'test': true});
+    final json = JsonResponse.fromMap(value: {'test': true});
     expect(json.isEmpty, false);
     expect(json.getBool(key: 'test'), true);
     expect(json.getBool(key: 'not_exist'), false);
@@ -157,7 +157,7 @@ void _testGetBoolValue() {
 
 void _testGetStringValues() {
   test('Test getStringValues.', () {
-    final json = Json.fromMap(value: {
+    final json = JsonResponse.fromMap(value: {
       'test': ['example_1', 'example_2']
     });
 
@@ -169,7 +169,7 @@ void _testGetStringValues() {
 
 void _testGetIntValues() {
   test('Test getIntValues.', () {
-    final json = Json.fromMap(value: {
+    final json = JsonResponse.fromMap(value: {
       'test': [0, 1]
     });
 
@@ -181,7 +181,7 @@ void _testGetIntValues() {
 
 void _testGetJsonFromJsonString() {
   test('Test getJson from JSON String.', () {
-    final json = Json.fromMap(value: {'test1': '{"test2": true}'});
+    final json = JsonResponse.fromMap(value: {'test1': '{"test2": true}'});
     expect(json.isEmpty, false);
 
     final childJson = json.getJson(key: 'test1');
@@ -192,7 +192,7 @@ void _testGetJsonFromJsonString() {
 
 void _testGetJsonFromJsonMap() {
   test('Test getJson from JSON map.', () {
-    final json = Json.fromMap(value: {
+    final json = JsonResponse.fromMap(value: {
       'test1': {"test2": true}
     });
     expect(json.isEmpty, false);
@@ -205,7 +205,7 @@ void _testGetJsonFromJsonMap() {
 
 void _integrationTest() {
   test('Integration test.', () {
-    final json = Json.fromString(value: '''
+    final json = JsonResponse.fromString(value: '''
         {
             "strength_bars": 1,
             "infinitive": null,

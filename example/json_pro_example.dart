@@ -3,21 +3,23 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:typed_data';
-import 'package:json_pro/json_pro.dart';
+
+import 'package:json_response/json_response.dart';
 
 void main() {
   // It provides constructors to get JSON from JSON string, JSON map, and JSON bytes.
-  final jsonFromString = Json.fromString(value: '{"test": "something"}');
-  final jsonFromMap = Json.fromMap(value: {'test': 'something'});
-  final jsonFromBytes = Json.fromBytes(
-      bytes: Uint8List.fromList('{"test": "something"}'.codeUnits));
+  final jsonFromString =
+      JsonResponse.fromString(value: '{"test": "something"}');
+  final jsonFromMap = JsonResponse.fromMap(value: {'test': 'something'});
+  final jsonFromBytes = JsonResponse.fromBytes(
+      value: Uint8List.fromList('{"test": "something"}'.codeUnits));
 
   // You can use handful methods in the same interface once instance is created.
   print(jsonFromString.getString(key: 'test'));
   print(jsonFromMap.getString(key: 'test'));
   print(jsonFromBytes.getString(key: 'test'));
 
-  final testJson = Json.fromMap(
+  final testJson = JsonResponse.fromMap(
     value: {
       'testValueList': ['value1', 'value2'],
       'testJsonString': '{"key1": "value2"}',

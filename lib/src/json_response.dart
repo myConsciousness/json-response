@@ -6,14 +6,14 @@
 import 'dart:typed_data';
 
 // Project imports:
-import 'package:json_pro/src/json_pro.dart';
+import 'package:json_response/src/json_response_impl.dart';
 
 /// This abstract class provides a simple, intuitive, and safe way to handle JSON.
 ///
-/// This class provides a constructor that generates a [Json] instance from a JSON string,
-/// a JSON map, and a byte representation of the JSON string. You can use the [Json.fromString]
-/// constructor for JSON strings, the [Json.fromMap] constructor for JSON maps,
-/// and the [Json.fromBytes] constructor for byte representations of JSON strings.
+/// This class provides a constructor that generates a [JsonResponse] instance from a JSON string,
+/// a JSON map, and a byte representation of the JSON string. You can use the [JsonResponse.fromString]
+/// constructor for JSON strings, the [JsonResponse.fromMap] constructor for JSON maps,
+/// and the [JsonResponse.fromBytes] constructor for byte representations of JSON strings.
 ///
 /// It also provides methods to easily and safely retrieve values from JSON objects.
 /// For example, if you want to retrieve a string associated with a specific key,
@@ -26,31 +26,31 @@ import 'package:json_pro/src/json_pro.dart';
 /// with the specified key and return them as a list.
 ///
 /// You can use use [getJson] if the value associated with a particular key is a JSON object
-/// represented by a map. The type returned by this method is [Json], the same as this class.
+/// represented by a map. The type returned by this method is [JsonResponse], the same as this class.
 /// Even if the value associated with this particular key is a JSON object expressed as a string,
 /// no special procedure is required, and you can simply call the [getJson] method.
 ///
 /// Also you can use [getJsonList] if the values associated with a particular key are multiple JSON objects.
 /// This method recursively traverses all JSON objects associated with the key, so if there are nested JSON
 /// objects associated with this particular key, it is okay. This method will return a list of
-/// [Json] classes.
+/// [JsonResponse] classes.
 ///
 /// **_Example:_**
 ///
 /// ```dart
-/// void main() {
 ///   // It provides constructors to get JSON from JSON string, JSON map, and JSON bytes.
-///   final jsonFromString = Json.fromString(value: '{"test": "something"}');
-///   final jsonFromMap = Json.fromMap(value: {'test': 'something'});
-///   final jsonFromBytes = Json.fromBytes(
-///       bytes: Uint8List.fromList('{"test": "something"}'.codeUnits));
+///   final jsonFromString =
+///       JsonResponse.fromString(value: '{"test": "something"}');
+///   final jsonFromMap = JsonResponse.fromMap(value: {'test': 'something'});
+///   final jsonFromBytes = JsonResponse.fromBytes(
+///       value: Uint8List.fromList('{"test": "something"}'.codeUnits));
 ///
 ///   // You can use handful methods in the same interface once instance is created.
 ///   print(jsonFromString.getString(key: 'test'));
 ///   print(jsonFromMap.getString(key: 'test'));
 ///   print(jsonFromBytes.getString(key: 'test'));
 ///
-///   final testJson = Json.fromMap(
+///   final testJson = JsonResponse.fromMap(
 ///     value: {
 ///       'testValueList': ['value1', 'value2'],
 ///       'testJsonString': '{"key1": "value2"}',
@@ -92,26 +92,25 @@ import 'package:json_pro/src/json_pro.dart';
 ///   // If your JSON list is nested, that's okay!
 ///   // All JSON expressions associated with a key will be returned as JSON objects.
 ///   print(testJson.getJsonList(key: 'testRecursiveJsonList'));
-/// }
 /// ```
-abstract class Json {
-  /// Returns the new instance of [Json] from json map.
-  factory Json.fromMap({
+abstract class JsonResponse {
+  /// Returns the new instance of [JsonResponse] from json map.
+  factory JsonResponse.fromMap({
     required Map<String, dynamic> value,
   }) =>
-      JsonPro.fromMap(value: value);
+      JsonResponseImpl.fromMap(value: value);
 
-  /// Returns the new instance of [Json] from json string.
-  factory Json.fromString({
+  /// Returns the new instance of [JsonResponse] from json string.
+  factory JsonResponse.fromString({
     required String value,
   }) =>
-      JsonPro.fromString(value: value);
+      JsonResponseImpl.fromString(value: value);
 
-  /// Returns the new instance of [Json] from bytes.
-  factory Json.fromBytes({
-    required Uint8List bytes,
+  /// Returns the new instance of [JsonResponse] from bytes.
+  factory JsonResponse.fromBytes({
+    required Uint8List value,
   }) =>
-      JsonPro.fromBytes(bytes: bytes);
+      JsonResponseImpl.fromBytes(value: value);
 
   /// Returns the string value linked to the [key], otherwise [defaultValue].
   ///
@@ -154,10 +153,10 @@ abstract class Json {
   });
 
   /// Returns the child json linked to the [key], otherwise empty json object.
-  Json getJson({required String key});
+  JsonResponse getJson({required String key});
 
   /// Returns the child json list linked to the [key], otherwise empty json list.
-  List<Json> getJsonList({required String key});
+  List<JsonResponse> getJsonList({required String key});
 
   /// Returns the string value list linked to the [key], otherwise empty list.
   List<String> getStringValues({required String key});

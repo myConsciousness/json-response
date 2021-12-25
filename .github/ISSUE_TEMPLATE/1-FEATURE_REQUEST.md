@@ -1,7 +1,8 @@
 ---
 name: I'd like a new feature.
-about: You are using `package:json_pro` and would like a new feature to make it
-  easier to Json.
+about:
+  You are using `package:json_response` and would like a new feature to make it
+  easier to JSON response.
 ---
 
 <!--

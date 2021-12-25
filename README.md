@@ -1,9 +1,9 @@
-**_A most easily usable JSON wrapper library in Dart!_**
+**_A most easily usable JSON response wrapper library in Dart!_**
 
-[![pub package](https://img.shields.io/pub/v/json_pro.svg)](https://pub.dev/packages/json_pro)
-[![codecov](https://codecov.io/gh/myConsciousness/json-pro/branch/main/graph/badge.svg?token=MFRO47D2DG)](https://codecov.io/gh/myConsciousness/json-pro)
-[![Analyzer](https://github.com/myConsciousness/json-pro/actions/workflows/analyzer.yml/badge.svg)](https://github.com/myConsciousness/json-pro/actions/workflows/analyzer.yml)
-[![Test](https://github.com/myConsciousness/json-pro/actions/workflows/test.yml/badge.svg)](https://github.com/myConsciousness/json-pro/actions/workflows/test.yml)
+[![pub package](https://img.shields.io/pub/v/json_response.svg)](https://pub.dev/packages/json_response)
+[![codecov](https://codecov.io/gh/myConsciousness/json-response/branch/main/graph/badge.svg?token=MFRO47D2DG)](https://codecov.io/gh/myConsciousness/json-response)
+[![Analyzer](https://github.com/myConsciousness/json-response/actions/workflows/analyzer.yml/badge.svg)](https://github.com/myConsciousness/json-response/actions/workflows/analyzer.yml)
+[![Test](https://github.com/myConsciousness/json-response/actions/workflows/test.yml/badge.svg)](https://github.com/myConsciousness/json-response/actions/workflows/test.yml)
 
 <!-- TOC -->
 
@@ -11,7 +11,7 @@
   - [1.1. Introduction](#11-introduction)
     - [1.1.1. Install Library](#111-install-library)
     - [1.1.2. Import It](#112-import-it)
-    - [1.1.3. Use JsonPro](#113-use-jsonpro)
+    - [1.1.3. Use JsonResponse](#113-use-jsonresponse)
   - [1.2. License](#12-license)
   - [1.3. More Information](#13-more-information)
 
@@ -19,17 +19,17 @@
 
 # 1. About
 
-`JsonPro` is an open-sourced Dart library.</br>
-With `JsonPro`, you can easily and safely handle JSON on your application.
+`JsonResponse` is an open-sourced Dart library.</br>
+With `JsonResponse`, you can easily and safely handle JSON response on your application.
 
-This library was created with the goal of making JSON easier, more intuitive, and safer to use in the Dart language. For example, as a result of the communication process with the Web API, JSON is returned from the [http](https://pub.dev/packages/http) package and you have ever written the following process when the JSON is set to [Response](https://pub.dev/documentation/http/latest/http/Response-class.html), right?
+This library was created with the goal of making JSON response easier, more intuitive, and safer to use in the Dart language. For example, as a result of the communication process with the Web API, JSON is returned from the [http](https://pub.dev/packages/http) package and you have ever written the following process when the JSON is set to [Response](https://pub.dev/documentation/http/latest/http/Response-class.html), right?
 
 ```dart
 final json = jsonDecode(value);
 final something = json['key'] ?? '';
 ```
 
-With `JsonPro`, the above implementation is no longer necessary!
+With `JsonResponse`, the above implementation is no longer necessary!
 
 ## 1.1. Introduction
 
@@ -38,32 +38,32 @@ With `JsonPro`, the above implementation is no longer necessary!
 **_With Dart:_**
 
 ```terminal
- dart pub add json_pro
+ dart pub add json_response
 ```
 
 **_With Flutter:_**
 
 ```terminal
- flutter pub add json_pro
+ flutter pub add json_response
 ```
 
 ### 1.1.2. Import It
 
 ```dart
-import 'package:json_pro/json_pro.dart';
+import 'package:json_response/json_response.dart';
 ```
 
-### 1.1.3. Use JsonPro
+### 1.1.3. Use JsonResponse
 
 ```dart
 import 'dart:typed_data';
-import 'package:json_pro/json_pro.dart';
+import 'package:json_response/json_response.dart';
 
 void main() {
   // It provides constructors to get JSON from JSON string, JSON map, and JSON bytes.
-  final jsonFromString = Json.fromString(value: '{"test": "something"}');
-  final jsonFromMap = Json.fromMap(value: {'test': 'something'});
-  final jsonFromBytes = Json.fromBytes(
+  final jsonFromString = JsonResponse.fromString(value: '{"test": "something"}');
+  final jsonFromMap = JsonResponse.fromMap(value: {'test': 'something'});
+  final jsonFromBytes = JsonResponse.fromBytes(
       bytes: Uint8List.fromList('{"test": "something"}'.codeUnits));
 
   // You can use handful methods in the same interface once instance is created.
@@ -71,7 +71,7 @@ void main() {
   print(jsonFromMap.getString(key: 'test'));
   print(jsonFromBytes.getString(key: 'test'));
 
-  final testJson = Json.fromMap(
+  final testJson = JsonResponse.fromMap(
     value: {
       'testValueList': ['value1', 'value2'],
       'testJsonString': '{"key1": "value2"}',
@@ -126,10 +126,10 @@ BSD-style license that can be found in the LICENSE file.
 
 ## 1.3. More Information
 
-`JsonPro` was designed and implemented by **_Kato Shinya_**.
+`JsonResponse` was designed and implemented by **_Kato Shinya_**.
 
 - [Creator Profile](https://github.com/myConsciousness)
-- [License](https://github.com/myConsciousness/json-pro/blob/main/LICENSE)
-- [API Document](https://pub.dev/documentation/json_pro/latest/json_pro/json_pro-library.html)
-- [Release Note](https://github.com/myConsciousness/json-pro/releases)
-- [Bug Report](https://github.com/myConsciousness/json-pro/issues)
+- [License](https://github.com/myConsciousness/json-response/blob/main/LICENSE)
+- [API Document](https://pub.dev/documentation/json_response/latest/json_response/json_response-library.html)
+- [Release Note](https://github.com/myConsciousness/json-response/releases)
+- [Bug Report](https://github.com/myConsciousness/json-response/issues)

@@ -1,7 +1,7 @@
-name: json_pro
-description: A most easily usable JSON wrapper library in Dart. With JsonPro, you can easily and safely handle JSON on your application.
+name: json_response
+description: A most easily usable JSON response wrapper library in Dart. With JsonResponse, you can easily and safely handle JSON response on your application.
 version: 1.0.0
-homepage: https://github.com/myConsciousness/json-pro
+homepage: https://github.com/myConsciousness/json-response
 
 environment:
   sdk: ">=2.15.1 <3.0.0"

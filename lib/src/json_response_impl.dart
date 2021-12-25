@@ -7,24 +7,24 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 // Project imports:
-import 'package:json_pro/src/json.dart';
+import 'package:json_response/src/json_response.dart';
 
-/// This class is an implementation of the [Json] class.
-class JsonPro implements Json {
-  /// Returns the new instance of [JsonPro] from json map.
-  JsonPro.fromMap({
+/// This class is an implementation of the [JsonResponse] class.
+class JsonResponseImpl implements JsonResponse {
+  /// Returns the new instance of [JsonResponseImpl] from json map.
+  JsonResponseImpl.fromMap({
     required Map<String, dynamic> value,
   }) : _resource = value;
 
-  /// Returns the new instance of [JsonPro] from json string.
-  JsonPro.fromString({
+  /// Returns the new instance of [JsonResponseImpl] from json string.
+  JsonResponseImpl.fromString({
     required String value,
   }) : _resource = jsonDecode(value);
 
-  /// Returns the new instance of [JsonPro] from raw bytes.
-  JsonPro.fromBytes({
-    required Uint8List bytes,
-  }) : _resource = jsonDecode(utf8.decode(bytes));
+  /// Returns the new instance of [JsonResponseImpl] from raw bytes.
+  JsonResponseImpl.fromBytes({
+    required Uint8List value,
+  }) : _resource = jsonDecode(utf8.decode(value));
 
   /// The json
   final Map<String, dynamic> _resource;
@@ -58,27 +58,27 @@ class JsonPro implements Json {
       _resource[key] ?? defaultValue;
 
   @override
-  JsonPro getJson({required String key}) {
+  JsonResponseImpl getJson({required String key}) {
     if (!containsKey(key: key)) {
-      return JsonPro.fromMap(value: {});
+      return JsonResponseImpl.fromMap(value: {});
     }
 
     final value = _resource[key] ?? <String, dynamic>{};
 
     if (value is String) {
-      return JsonPro.fromString(value: value);
+      return JsonResponseImpl.fromString(value: value);
     }
 
-    return JsonPro.fromMap(value: value);
+    return JsonResponseImpl.fromMap(value: value);
   }
 
   @override
-  List<JsonPro> getJsonList({required String key}) {
+  List<JsonResponseImpl> getJsonList({required String key}) {
     if (!containsKey(key: key)) {
       return [];
     }
 
-    final jsonList = <JsonPro>[];
+    final jsonList = <JsonResponseImpl>[];
 
     for (final json in _resource[key]) {
       if (json is List) {
@@ -88,7 +88,7 @@ class JsonPro implements Json {
         );
       } else {
         jsonList.add(
-          JsonPro.fromMap(value: json),
+          JsonResponseImpl.fromMap(value: json),
         );
       }
     }
@@ -98,7 +98,7 @@ class JsonPro implements Json {
 
   void _getJsonListRecursively({
     required dynamic childJsonList,
-    required List<JsonPro> jsonList,
+    required List<JsonResponseImpl> jsonList,
   }) {
     for (final json in childJsonList) {
       if (json is List) {
@@ -108,7 +108,7 @@ class JsonPro implements Json {
         );
       } else {
         jsonList.add(
-          JsonPro.fromMap(value: json),
+          JsonResponseImpl.fromMap(value: json),
         );
       }
     }
