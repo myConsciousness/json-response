@@ -64,7 +64,7 @@ void main() {
   final jsonFromString = JsonResponse.fromString(value: '{"test": "something"}');
   final jsonFromMap = JsonResponse.fromMap(value: {'test': 'something'});
   final jsonFromBytes = JsonResponse.fromBytes(
-      bytes: Uint8List.fromList('{"test": "something"}'.codeUnits));
+      value: Uint8List.fromList('{"test": "something"}'.codeUnits));
 
   // You can use handful methods in the same interface once instance is created.
   print(jsonFromString.getString(key: 'test'));
