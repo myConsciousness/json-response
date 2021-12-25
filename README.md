@@ -25,7 +25,7 @@ With `JsonResponse`, you can easily and safely handle JSON response on your appl
 This library was created with the goal of making JSON response easier, more intuitive, and safer to use in the Dart language. For example, as a result of the communication process with the Web API, JSON is returned from the [http](https://pub.dev/packages/http) package and you have ever written the following process when the JSON is set to [Response](https://pub.dev/documentation/http/latest/http/Response-class.html), right?
 
 ```dart
-final json = jsonDecode(value);
+final json = jsonDecode(response.body);
 final something = json['key'] ?? '';
 ```
 
