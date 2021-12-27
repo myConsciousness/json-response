@@ -73,12 +73,12 @@ class JsonResponseImpl implements JsonResponse {
   }
 
   @override
-  List<JsonResponseImpl?> getJsonList({required String key}) {
+  List<JsonResponseImpl> getJsonList({required String key}) {
     if (!containsKey(key: key)) {
       return [];
     }
 
-    final jsonList = <JsonResponseImpl?>[];
+    final jsonList = <JsonResponseImpl>[];
 
     _getJsonListRecursively(
       childJsonList: _resource[key],
@@ -90,13 +90,14 @@ class JsonResponseImpl implements JsonResponse {
 
   void _getJsonListRecursively({
     required dynamic childJsonList,
-    required List<JsonResponseImpl?> jsonList,
+    required List<JsonResponseImpl> jsonList,
   }) {
     for (final json in childJsonList) {
       if (json == null) {
-        // Null may be meaningful depending on the data structure,
-        // so it is retained.
-        jsonList.add(null);
+        jsonList.add(
+          JsonResponseImpl.fromMap(value: {}),
+        );
+
         continue;
       }
 

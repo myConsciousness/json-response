@@ -156,7 +156,7 @@ abstract class JsonResponse {
   JsonResponse getJson({required String key});
 
   /// Returns the child json list linked to the [key], otherwise empty json list.
-  List<JsonResponse?> getJsonList({required String key});
+  List<JsonResponse> getJsonList({required String key});
 
   /// Returns the string value list linked to the [key], otherwise empty list.
   List<String> getStringValues({required String key});
