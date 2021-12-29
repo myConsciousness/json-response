@@ -97,6 +97,8 @@ void main() {
 
   // You can also easily retrieve JSON that is nested within JSON.
   print(json.get(key: 'key4'));
+  // You can get this json as a map format.
+  print(json.toMap());
 
   // The forEach method makes it easy to handle repetitive processes.
   jsonArray.forEach((json) {
@@ -114,6 +116,11 @@ void main() {
   // but be aware that an exception will be thrown
   // if a non-existent index number is specified.
   print(jsonArray.get(index: 0));
+
+  // If you don't like the structure of several nested lists,
+  // you can use the toFlat method to make the nested structure flat.
+  // This method returns a new flattened JsonArray.
+  print(jsonArray.toFlat());
 }
 ```
 

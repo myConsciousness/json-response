@@ -9,6 +9,51 @@ import 'package:http/http.dart';
 import 'package:json_response/src/json_array.dart';
 import 'package:json_response/src/json_impl.dart';
 
+/// This abstract class represents the data structure of JSON,
+/// and provides convenient, easy, and safe features for handling JSON.
+///
+/// Instantiation of [Json] class is very simple,
+/// just pass the [Response](https://pub.dev/documentation/http/latest/http/Response-class.html) class
+/// returned when HTTP communication is performed with the [http](https://pub.dev/packages/http) package.
+///
+/// It also provides methods to easily and safely retrieve values from JSON object.
+///
+/// For example, if you want to retrieve a string associated with a specific key,
+/// use the [getString] method. If this key does not exist or if the value is null,
+/// a non-null value set as the default value in each method will be returned. If you want
+/// to set a specific default value, you can set the default value as an argument of each method.
+///
+/// If the values associated with a specific key are structured as a list, you can use
+/// [getStringValues] for example. These methods will retrieve all the values in the list associated
+/// with the specified key and return them as a list.
+///
+/// You can use use [get] if the value associated with a specific key is a JSON object
+/// represented by a map. The type returned by this method is [Json], the same as this class.
+/// Even if the value associated with this specific key is a JSON object expressed as a string,
+/// no special procedure is required, and you can simply call the [get] method.
+///
+/// Also you can use [getArray] if the values associated with a specific key are multiple JSON objects.
+/// See the [JsonArray] class documentation for details.
+///
+/// **_Example:_**
+///
+/// ```dart
+/// void main() {
+///   final response = Response(
+///     '{"key1": "value", "key2": 1, "key3": true, "key4": {"nested_key1": "nested_value"}}',
+///     200,
+///   );
+///
+///   final json = Json.from(response: response);
+///
+///   print(json.getString(key: 'key1'));
+///   print(json.getInt(key: 'key2'));
+///   print(json.getBool(key: 'key3'));
+///
+///   print(json.get(key: 'key4'));
+///   print(json.toMap());
+/// }
+/// ```
 abstract class Json {
   /// Returns the new instance of [Json] based on [response].
   factory Json.from({

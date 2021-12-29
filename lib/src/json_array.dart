@@ -9,6 +9,47 @@ import 'package:http/http.dart';
 import 'package:json_response/src/json.dart';
 import 'package:json_response/src/json_array_impl.dart';
 
+/// This abstract class represents the data structure of multiple JSON,
+/// and provides convenient, easy, and safe features for handling multiple JSON.
+///
+/// **_Example:_**
+///
+/// ```dart
+/// void main() {
+///   final response = Response(
+///     '''[
+///         {"key1": "value", "key2": 1, "key3": true},
+///         {"key1": "value", "key2": 1, "key3": true},
+///         {"key1": "value", "key2": 1, "key3": true}
+///       ]
+///     ''',
+///     200,
+///   );
+///
+///   final jsonArray = JsonArray.from(response: response);
+///
+///   // The forEach method makes it easy to handle repetitive processes.
+///   jsonArray.forEach((json) {
+///     print(json);
+///   });
+///
+///   // If you are iterating and want the current index as well,
+///   // the enumerate method is useful.
+///   jsonArray.enumerate((index, json) {
+///     print(index);
+///     print(json);
+///   });
+///
+///   // JSON can be retrieved by specifying a specific index,
+///   // but be aware that an exception will be thrown
+///   // if a non-existent index number is specified.
+///   print(jsonArray.get(index: 0));
+///
+///   // If you don't like the structure of several nested lists,
+///   // you can use the toFlat method to make the nested structure flat.
+///   // This method returns a new flattened JsonArray.
+///   print(jsonArray.toFlat());
+/// ```
 abstract class JsonArray {
   /// Returns the new instance of [JsonArray] based on [response].
   factory JsonArray.from({
