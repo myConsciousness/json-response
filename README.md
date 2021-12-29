@@ -25,9 +25,14 @@ With `JsonResponse`, you can easily and safely handle JSON response on your appl
 This library was created with the goal of making JSON response easier, more intuitive, and safer to use in the Dart language. For example, as a result of the communication process with the Web API, JSON is returned from the [http](https://pub.dev/packages/http) package and you have ever written the following process when the JSON is set to [Response](https://pub.dev/documentation/http/latest/http/Response-class.html), right?
 
 ```dart
-final json = jsonDecode(response.body);
-final something = json['key'] ?? '';
+void main() async {
+  final response = await http.get(Uri.parse('something'));
+  final json = jsonDecode(response.body);
+  print(json['key'] ?? '');
+}
 ```
+
+The above process is not only redundant, but also unsafe from an implementation standpoint, as it requires writing a process for when the value associated with the key does not exist. It becomes even more complicated in the case of a list structure with multiple JSONs.
 
 With `JsonResponse`, the above implementation is no longer necessary!
 
@@ -56,63 +61,54 @@ import 'package:json_response/json_response.dart';
 ### 1.1.3. Use JsonResponse
 
 ```dart
-import 'dart:typed_data';
+import 'package:http/http.dart';
 import 'package:json_response/json_response.dart';
 
 void main() {
-  // It provides constructors to get JSON from JSON string, JSON map, and JSON bytes.
-  final jsonFromString = JsonResponse.fromString(value: '{"test": "something"}');
-  final jsonFromMap = JsonResponse.fromMap(value: {'test': 'something'});
-  final jsonFromBytes = JsonResponse.fromBytes(
-      value: Uint8List.fromList('{"test": "something"}'.codeUnits));
-
-  // You can use handful methods in the same interface once instance is created.
-  print(jsonFromString.getString(key: 'test'));
-  print(jsonFromMap.getString(key: 'test'));
-  print(jsonFromBytes.getString(key: 'test'));
-
-  final testJson = JsonResponse.fromMap(
-    value: {
-      'testValueList': ['value1', 'value2'],
-      'testJsonString': '{"key1": "value2"}',
-      'testJsonList': [
-        {
-          'key1': 'value1',
-          'key2': 'value2',
-        }
-      ],
-      'testRecursiveJsonList': [
-        [
-          {
-            'key1': 'value1',
-            'key2': 'value2',
-          }
-        ],
-        {
-          'key3': 'value3',
-          'key4': 'value4',
-        }
-      ]
-    },
+  final jsonResponse = Response(
+    '{"key1": "value", "key2": 1, "key3": true, "key4": {"nested_key1": "nested_value"}}',
+    200,
   );
 
-  if (testJson.isEmpty) {
-    // Do something when json is empty.
-    return;
-  }
+  final jsonArrayResponse = Response(
+    '''[
+        {"key1": "value", "key2": 1, "key3": true},
+        {"key1": "value", "key2": 1, "key3": true},
+        {"key1": "value", "key2": 1, "key3": true}
+      ]
+    ''',
+    200,
+  );
 
-  // It provides features to safely get values from JSON.
-  print(testJson.getStringValues(key: 'testValueList'));
+  // Json represents a single JSON structure,
+  // and the JsonArray class represents a multiple JSON structure.
+  //
+  // Instantiation of either class is very simple,
+  // just pass the Response class returned when HTTP communication is
+  // performed with the http package.
+  final json = Json.from(response: jsonResponse);
+  final jsonArray = JsonArray.from(response: jsonArrayResponse);
 
-  // You can easily get a JSON object or JSON list associated with a key.
-  // If the JSON object associated with the key is a string,
-  // it will be automatically detected and parsed into a JSON object.
-  print(testJson.getJson(key: 'testJsonString'));
-  print(testJson.getJsonList(key: 'testJsonList'));
+  // Intuitively and safely retrieve data from dedicated methods
+  // that correspond to data types.
+  print(json.getString(key: 'key1'));
+  print(json.getInt(key: 'key2'));
+  print(json.getBool(key: 'key3'));
 
-  // If your JSON list is nested, that's okay!
-  // All JSON expressions associated with a key will be returned as JSON objects.
-  print(testJson.getJsonList(key: 'testRecursiveJsonList'));
+  // You can also easily retrieve JSON that is nested within JSON.
+  print(json.get(key: 'key4'));
+
+  // The forEach method makes it easy to handle repetitive processes.
+  jsonArray.forEach((json) {
+    print(json);
+  });
+
+  // If you are iterating and want the current index as well,
+  // the enumerate method is useful.
+  jsonArray.enumerate((index, json) {
+    print(index);
+    print(json);
+  });
 }
 ```
 

@@ -2,6 +2,5 @@
 // Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library json_pro;
-
-export 'src/json_response.dart';
+export 'src/json.dart';
+export 'src/json_array.dart';

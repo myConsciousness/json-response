@@ -4,27 +4,29 @@
 
 // Dart imports:
 import 'dart:convert';
-import 'dart:typed_data';
+
+// Package imports:
+import 'package:http/http.dart';
 
 // Project imports:
-import 'package:json_response/src/json_response.dart';
+import 'package:json_response/src/json.dart';
+import 'package:json_response/src/json_array.dart';
+import 'package:json_response/src/json_array_impl.dart';
 
-/// This class is an implementation of the [JsonResponse] class.
-class JsonResponseImpl implements JsonResponse {
-  /// Returns the new instance of [JsonResponseImpl] from json map.
-  JsonResponseImpl.fromMap({
+class JsonImpl implements Json {
+  JsonImpl.from({
+    required Response response,
+  }) : _resource = jsonDecode(utf8.decode(response.bodyBytes));
+
+  /// Returns the new instance of [JsonImpl] from json map.
+  JsonImpl.fromMap({
     required Map<String, dynamic> value,
   }) : _resource = value;
 
-  /// Returns the new instance of [JsonResponseImpl] from json string.
-  JsonResponseImpl.fromString({
+  /// Returns the new instance of [JsonImpl] from json string.
+  JsonImpl.fromString({
     required String value,
   }) : _resource = jsonDecode(value);
-
-  /// Returns the new instance of [JsonResponseImpl] from raw bytes.
-  JsonResponseImpl.fromBytes({
-    required Uint8List value,
-  }) : _resource = jsonDecode(utf8.decode(value));
 
   /// The json
   final Map<String, dynamic> _resource;
@@ -58,60 +60,27 @@ class JsonResponseImpl implements JsonResponse {
       _resource[key] ?? defaultValue;
 
   @override
-  JsonResponseImpl getJson({required String key}) {
+  Json get({required String key}) {
     if (!containsKey(key: key)) {
-      return JsonResponseImpl.fromMap(value: {});
+      return JsonImpl.fromMap(value: {});
     }
 
     final value = _resource[key] ?? <String, dynamic>{};
 
     if (value is String) {
-      return JsonResponseImpl.fromString(value: value);
+      return JsonImpl.fromString(value: value);
     }
 
-    return JsonResponseImpl.fromMap(value: value);
+    return JsonImpl.fromMap(value: value);
   }
 
   @override
-  List<JsonResponseImpl> getJsonList({required String key}) {
+  JsonArray getArray({required String key}) {
     if (!containsKey(key: key)) {
-      return [];
+      return JsonArray.empty();
     }
 
-    final jsonList = <JsonResponseImpl>[];
-
-    _getJsonListRecursively(
-      childJsonList: _resource[key],
-      jsonList: jsonList,
-    );
-
-    return jsonList;
-  }
-
-  void _getJsonListRecursively({
-    required dynamic childJsonList,
-    required List<JsonResponseImpl> jsonList,
-  }) {
-    for (final json in childJsonList) {
-      if (json == null) {
-        jsonList.add(
-          JsonResponseImpl.fromMap(value: {}),
-        );
-
-        continue;
-      }
-
-      if (json is List) {
-        _getJsonListRecursively(
-          childJsonList: json,
-          jsonList: jsonList,
-        );
-      } else {
-        jsonList.add(
-          JsonResponseImpl.fromMap(value: json),
-        );
-      }
-    }
+    return JsonArrayImpl.fromList(values: _resource[key]);
   }
 
   @override
