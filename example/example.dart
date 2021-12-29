@@ -50,4 +50,9 @@ void main() {
     print(index);
     print(json);
   });
+
+  // JSON can be retrieved by specifying a specific index,
+  // but be aware that an exception will be thrown
+  // if a non-existent index number is specified.
+  print(jsonArray.get(index: 0));
 }
