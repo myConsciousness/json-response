@@ -10,14 +10,19 @@ import 'package:json_response/src/json_array.dart';
 import 'package:json_response/src/json_impl.dart';
 
 abstract class Json {
+  /// Returns the new instance of [Json] based on [response].
   factory Json.from({
     required Response response,
   }) =>
       JsonImpl.from(response: response);
 
+  /// Returns the new instance of empty [Json].
   factory Json.empty() => JsonImpl.fromMap(value: {});
 
-  /// Returns the string value linked to the [key], otherwise [defaultValue].
+  /// Returns the length of this json.
+  int get length;
+
+  /// Returns the string value associated with the [key], otherwise [defaultValue].
   ///
   /// If [key] does not exist in the JSON object, or if there is a specific default value that
   /// you want to return when the value associated with [key] is null, set it to the
@@ -27,7 +32,7 @@ abstract class Json {
     String defaultValue = '',
   });
 
-  /// Returns the int value linked to the [key], otherwise [defaultValue].
+  /// Returns the int value associated with the [key], otherwise [defaultValue].
   ///
   /// If [key] does not exist in the JSON object, or if there is a specific default value that
   /// you want to return when the value associated with [key] is null, set it to the
@@ -37,7 +42,7 @@ abstract class Json {
     int defaultValue = -1,
   });
 
-  /// Returns the double value linked to the [key], otherwise [defaultValue].
+  /// Returns the double value associated with the [key], otherwise [defaultValue].
   ///
   /// If [key] does not exist in the JSON object, or if there is a specific default value that
   /// you want to return when the value associated with [key] is null, set it to the
@@ -47,7 +52,7 @@ abstract class Json {
     double defaultValue = -1.0,
   });
 
-  /// Returns the bool value linked to the [key], otherwise [defaultValue].
+  /// Returns the bool value associated with the [key], otherwise [defaultValue].
   ///
   /// If [key] does not exist in the JSON object, or if there is a specific default value that
   /// you want to return when the value associated with [key] is null, set it to the
@@ -57,26 +62,32 @@ abstract class Json {
     bool defaultValue = false,
   });
 
-  /// Returns the child json linked to the [key], otherwise empty json object.
+  /// Returns the child json associated with the [key], otherwise empty json object.
   Json get({required String key});
 
-  /// Returns the child json array linked to the [key], otherwise empty json array.
+  /// Returns the child json array associated with the [key], otherwise empty json array.
   JsonArray getArray({required String key});
 
-  /// Returns the string value list linked to the [key], otherwise empty list.
+  /// Returns the string value list associated with the [key], otherwise empty list.
   List<String> getStringValues({required String key});
 
-  /// Returns the int value list linked to the [key], otherwise empty list.
+  /// Returns the int value list associated with the [key], otherwise empty list.
   List<int> getIntValues({required String key});
 
-  /// Returns the double value list linked to the [key], otherwise empty list.
+  /// Returns the double value list associated with the [key], otherwise empty list.
   List<double> getDoubleValues({required String key});
 
-  /// Returns true if json contains key linked to [key] passed as an argument.
+  /// Returns true if json contains key associated with [key] passed as an argument.
   bool containsKey({required String key});
 
   /// Returns the key set of this json object.
   Set<String> get keySet;
+
+  /// Applies [action] to each key/value pair of the json.
+  void forEach(void Function(String key, dynamic value) action);
+
+  /// Returns this json as a map format.
+  Map<String, dynamic> toMap();
 
   /// Returns true if this json object is empty, otherwise false.
   bool get isEmpty;

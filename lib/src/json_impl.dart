@@ -32,6 +32,9 @@ class JsonImpl implements Json {
   final Map<String, dynamic> _resource;
 
   @override
+  int get length => _resource.length;
+
+  @override
   String getString({
     required String key,
     String defaultValue = '',
@@ -133,6 +136,16 @@ class JsonImpl implements Json {
 
   @override
   Set<String> get keySet => _resource.keys.toSet();
+
+  @override
+  void forEach(void Function(String key, dynamic value) action) {
+    for (final key in keySet) {
+      action(key, _resource[key]);
+    }
+  }
+
+  @override
+  Map<String, dynamic> toMap() => _resource;
 
   @override
   bool get isEmpty => _resource.isEmpty;

@@ -3,8 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // Package imports:
-import 'package:test/expect.dart';
-import 'package:test/scaffolding.dart';
+import 'package:test/test.dart';
 
 // Project imports:
 import 'package:json_response/src/json_array_impl.dart';
@@ -44,5 +43,51 @@ void main() {
     });
 
     expect(jsonArray.get(index: 1).getString(key: 'key2'), 'value2');
+  });
+
+  test('Test when JSON array is nested.', () {
+    final jsonArray = JsonArrayImpl.fromList(
+      values: [
+        [
+          {'key1': 'value1', 'key2': 'value2'}
+        ],
+        [
+          {'key1': 'value1', 'key2': 'value2'}
+        ],
+        [
+          {'key1': 'value1', 'key2': 'value2'}
+        ],
+      ],
+    );
+
+    expect(jsonArray.isEmpty, false);
+    expect(jsonArray.isNotEmpty, true);
+
+    jsonArray.forEachArray((jsonArray) {
+      expect(jsonArray.isNotEmpty, true);
+
+      jsonArray.forEach((json) {
+        expect(json.getString(key: 'key1'), 'value1');
+        expect(json.getString(key: 'key2'), 'value2');
+      });
+    });
+
+    int testIndex = 0;
+    jsonArray.enumeratArray((index, jsonArray) {
+      expect(jsonArray.isNotEmpty, true);
+
+      jsonArray.forEach((json) {
+        expect(json.getString(key: 'key1'), 'value1');
+        expect(json.getString(key: 'key2'), 'value2');
+      });
+
+      expect(index, testIndex);
+      testIndex++;
+    });
+
+    expect(jsonArray.getArray(index: 1).get(index: 0).getString(key: 'key2'),
+        'value2');
+    expect(jsonArray.toFlat().toString(),
+        '[{key1: value1, key2: value2}, {key1: value1, key2: value2}, {key1: value1, key2: value2}]');
   });
 }

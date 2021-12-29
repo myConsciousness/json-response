@@ -20,7 +20,7 @@ class JsonArrayImpl implements JsonArray {
 
   /// Returns the new instance of [JsonImpl] from json list.
   JsonArrayImpl.fromList({
-    required List<Map<String, dynamic>> values,
+    required List<dynamic> values,
   }) : _resources = values;
 
   /// The resources of this array
@@ -34,6 +34,12 @@ class JsonArrayImpl implements JsonArray {
     required int index,
   }) =>
       JsonImpl.fromMap(value: _resources[index]);
+
+  @override
+  JsonArray getArray({
+    required int index,
+  }) =>
+      JsonArrayImpl.fromList(values: _resources[index]);
 
   @override
   void forEach(void Function(Json json) action) {
@@ -51,6 +57,57 @@ class JsonArrayImpl implements JsonArray {
       action(index, json);
       index++;
     });
+  }
+
+  @override
+  void forEachArray(void Function(JsonArray jsonArray) action) {
+    for (final resource in _resources) {
+      action(
+        JsonArrayImpl.fromList(values: resource),
+      );
+    }
+  }
+
+  @override
+  void enumeratArray(void Function(int index, JsonArray jsonArray) action) {
+    int index = 0;
+    forEachArray((jsonArray) {
+      action(index, jsonArray);
+      index++;
+    });
+  }
+
+  @override
+  JsonArray toFlat() {
+    final flatted = [];
+
+    _retrieveJsonRecursively(
+      nestedJson: _resources,
+      results: flatted,
+    );
+
+    return JsonArrayImpl.fromList(values: flatted);
+  }
+
+  void _retrieveJsonRecursively({
+    required List nestedJson,
+    required List results,
+  }) {
+    for (final json in nestedJson) {
+      if (json == null) {
+        results.add({});
+        continue;
+      }
+
+      if (json is List) {
+        _retrieveJsonRecursively(
+          nestedJson: json,
+          results: results,
+        );
+      } else {
+        results.add(json);
+      }
+    }
   }
 
   @override
