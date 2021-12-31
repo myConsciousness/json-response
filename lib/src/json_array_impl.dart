@@ -45,7 +45,7 @@ class JsonArrayImpl implements JsonArray {
   void forEach(void Function(Json json) action) {
     for (final resource in _resources) {
       action(
-        JsonImpl.fromMap(value: resource),
+        JsonImpl.fromMap(value: resource ?? {}),
       );
     }
   }
@@ -63,7 +63,7 @@ class JsonArrayImpl implements JsonArray {
   void forEachArray(void Function(JsonArray jsonArray) action) {
     for (final resource in _resources) {
       action(
-        JsonArrayImpl.fromList(values: resource),
+        JsonArrayImpl.fromList(values: resource ?? []),
       );
     }
   }

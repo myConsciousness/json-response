@@ -1,5 +1,11 @@
 # Release Note
 
+## 2.1.0
+
+- Improved documentation.
+- Fixed the `forEach` method of `JsonArray` so that it returns an empty `Json` if the value it iterates over is null.
+- Fixed the `forEachArray` method of `JsonArray` so that it returns an empty `JsonArray` if the value it iterates over is null.
+
 ## 2.0.0
 
 - The data structure has been refactored and there are some destructive changes.

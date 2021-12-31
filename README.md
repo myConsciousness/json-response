@@ -1,5 +1,10 @@
 **_A most easily usable JSON response wrapper library in Dart!_**
 
+[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/myConsciousness/json-response)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](https://mail.google.com/mail/u/0/?to=kato.shinya.dev@gmail.com&fs=1&tf=cm)
+[![Line](https://img.shields.io/badge/Line-00C300?style=for-the-badge&logo=line&logoColor=white)](https://line.me/ti/p/YP2nycjVCb)
+[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/ThinkitShinya)
+
 [![pub package](https://img.shields.io/pub/v/json_response.svg)](https://pub.dev/packages/json_response)
 [![codecov](https://codecov.io/gh/myConsciousness/json-response/branch/main/graph/badge.svg?token=MFRO47D2DG)](https://codecov.io/gh/myConsciousness/json-response)
 [![Analyzer](https://github.com/myConsciousness/json-response/actions/workflows/analyzer.yml/badge.svg)](https://github.com/myConsciousness/json-response/actions/workflows/analyzer.yml)

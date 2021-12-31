@@ -68,7 +68,7 @@ class JsonImpl implements Json {
       return JsonImpl.fromMap(value: {});
     }
 
-    final value = _resource[key] ?? <String, dynamic>{};
+    final value = _resource[key] ?? {};
 
     if (value is String) {
       return JsonImpl.fromString(value: value);
