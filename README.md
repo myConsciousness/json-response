@@ -218,6 +218,7 @@ If there is no value associated with the key, an empty list will be returned.
 | [getStringValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getStringValues.html) |
 | [getIntValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getIntValues.html)       |
 | [getDoubleValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getDoubleValues.html) |
+| [getBoolValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getBoolValues.html)     |
 
 #### 1.3.1.4. Get Child JSON
 
