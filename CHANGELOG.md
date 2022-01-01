@@ -6,6 +6,8 @@
 
 ### New Features
 
+- Added `getBoolValues` method to the `Json` class to get the bool array set in the JSON object.
+
 ### Destructive Changes
 
 - Fixed typo in `enumerateArray` method.
