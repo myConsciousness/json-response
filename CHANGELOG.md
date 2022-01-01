@@ -2,6 +2,8 @@
 
 ## 2.3.0
 
+- Improved documentation.
+
 ### New Features
 
 - Added a feature to automatically convert the response body to JSON format from XML format. This feature is only added to the `from` constructor of the `Json` class, and the `from` constructor of the `JsonArray` class does not. The `xml2json` package is used to convert from XML format to JSON format.

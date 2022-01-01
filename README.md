@@ -303,7 +303,7 @@ If you need an empty `JsonArray`, you can get an empty `JsonArray` object from t
 When a JSON Array contains multiple JSON, the `get` method can be used to get the JSON associated with the index specified in the argument as a `Json` object.
 
 > **_Note:_**</br>
-> Whenever a non-existent index number is specified as an argument, an exception will be raised indicating that the specified exception is out of range.
+> Whenever a non-existent index number is specified as an argument, an exception will be raised indicating that the specified index is out of range.
 
 | Method                                                                                                           |
 | ---------------------------------------------------------------------------------------------------------------- |
@@ -314,7 +314,7 @@ When a JSON Array contains multiple JSON, the `get` method can be used to get th
 When a JSON Array contains nested JSON Array, the `getArray` method can be used to get the JSON associated with the index specified in the argument as a `JsonArray` object.
 
 > **_Note:_**</br>
-> Whenever a non-existent index number is specified as an argument, an exception will be raised indicating that the specified exception is out of range.
+> Whenever a non-existent index number is specified as an argument, an exception will be raised indicating that the specified index is out of range.
 
 | Method                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------- |
