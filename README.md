@@ -30,6 +30,7 @@
       - [1.3.2.1. Create Instance](#1321-create-instance)
       - [1.3.2.2. Get JSON](#1322-get-json)
       - [1.3.2.3. Get Nested JSON Array](#1323-get-nested-json-array)
+      - [1.3.2.4. Iteration](#1324-iteration)
   - [1.4. License](#14-license)
   - [1.5. More Information](#15-more-information)
 
@@ -265,7 +266,7 @@ The `JsonArray` class represents a multiple JSON structure like below.
 
 #### 1.3.2.1. Create Instance
 
-`Json` class provides 2 patterns for creating instances.
+`JsonArray` class provides 2 patterns for creating instances.
 
 | Constructor                                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -274,7 +275,7 @@ The `JsonArray` class represents a multiple JSON structure like below.
 
 The `from` constructor takes the `Response` object returned from the `http` package as an argument and safely parses the JSON string contained in the response. JSON strings will be parsed in UTF-8 format.
 
-If you need an empty `Json`, you can get an empty `Json` object from the `empty` constructor instead of null.
+If you need an empty `JsonArray`, you can get an empty `JsonArray` object from the `empty` constructor instead of null.
 
 #### 1.3.2.2. Get JSON
 
@@ -297,6 +298,21 @@ When a JSON Array contains nested JSON Array, the `getArray` method can be used 
 | Method                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------- |
 | [getArray({required int index})](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/getArray.html) |
+
+#### 1.3.2.4. Iteration
+
+The `JsonArray` class provides convenient features for iterating over JSON Array objects.
+
+| Method                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [forEach(void action(Json json))](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/forEach.html)                                    |
+| [forEachArray(void action(JsonArray jsonArray))](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/forEachArray.html)                |
+| [enumerate(void action(int index, Json json)](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/enumerate.html))                     |
+| [enumerateArray(void action(int index, JsonArray jsonArray)](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/enumerateArray.html)) |
+
+You can use the `forEach` method if the object contained in the JSON Array is a JSON object, and you can use the `forEachArray` method if it is a nested JSON Array.
+
+If you also need the index number in the iteration process, you can use `enumerate` or `enumerateArray` methods.
 
 ## 1.4. License
 

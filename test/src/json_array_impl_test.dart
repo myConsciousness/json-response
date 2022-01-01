@@ -73,7 +73,7 @@ void main() {
     });
 
     int testIndex = 0;
-    jsonArray.enumeratArray((index, jsonArray) {
+    jsonArray.enumerateArray((index, jsonArray) {
       expect(jsonArray.isNotEmpty, true);
 
       jsonArray.forEach((json) {

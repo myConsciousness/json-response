@@ -69,7 +69,7 @@ class JsonArrayImpl implements JsonArray {
   }
 
   @override
-  void enumeratArray(void Function(int index, JsonArray jsonArray) action) {
+  void enumerateArray(void Function(int index, JsonArray jsonArray) action) {
     int index = 0;
     forEachArray((jsonArray) {
       action(index, jsonArray);

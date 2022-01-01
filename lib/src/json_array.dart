@@ -85,7 +85,7 @@ abstract class JsonArray {
   void forEachArray(void Function(JsonArray jsonArray) action);
 
   /// Invokes [action] on each [index] and [jsonArray] of this json array in iteration order.
-  void enumeratArray(void Function(int index, JsonArray jsonArray) action);
+  void enumerateArray(void Function(int index, JsonArray jsonArray) action);
 
   /// Returns the new instance of flattened [JsonArray] from this [JsonArray].
   JsonArray toFlat();
