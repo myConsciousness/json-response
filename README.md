@@ -13,12 +13,22 @@
 <!-- TOC -->
 
 - [1. About](#1-about)
-  - [1.1. Introduction](#11-introduction)
-    - [1.1.1. Install Library](#111-install-library)
-    - [1.1.2. Import It](#112-import-it)
-    - [1.1.3. Use JsonResponse](#113-use-jsonresponse)
-  - [1.2. License](#12-license)
-  - [1.3. More Information](#13-more-information)
+  - [1.1. Motivation](#11-motivation)
+  - [1.2. Introduction](#12-introduction)
+    - [1.2.1. Install Library](#121-install-library)
+    - [1.2.2. Import It](#122-import-it)
+    - [1.2.3. Use JsonResponse](#123-use-jsonresponse)
+  - [1.3. Details](#13-details)
+    - [1.3.1. Json](#131-json)
+      - [1.3.1.1. Create Instance](#1311-create-instance)
+      - [1.3.1.2. Get Value](#1312-get-value)
+      - [1.3.1.3. Get Multiple Values](#1313-get-multiple-values)
+      - [1.3.1.4. Get Child JSON](#1314-get-child-json)
+      - [1.3.1.5. Get JSON Array](#1315-get-json-array)
+      - [1.3.1.6. Iteration](#1316-iteration)
+    - [1.3.2. JsonArray](#132-jsonarray)
+  - [1.4. License](#14-license)
+  - [1.5. More Information](#15-more-information)
 
 <!-- /TOC -->
 
@@ -27,7 +37,11 @@
 `JsonResponse` is an open-sourced Dart library.</br>
 With `JsonResponse`, you can easily and safely handle JSON response on your application.
 
-This library was created with the goal of making JSON response easier, more intuitive, and safer to use in the Dart language. For example, as a result of the communication process with the Web API, JSON is returned from the [http](https://pub.dev/packages/http) package and you have ever written the following process when the JSON is set to [Response](https://pub.dev/documentation/http/latest/http/Response-class.html), right?
+This library was created with the goal of making JSON response easier, more intuitive, and safer to use in the Dart language.
+
+## 1.1. Motivation
+
+For example, as a result of the communication process with the Web API, JSON is returned from the [http](https://pub.dev/packages/http) package and you have ever written the following process when the JSON is set to [Response](https://pub.dev/documentation/http/latest/http/Response-class.html), right?
 
 ```dart
 void main() async {
@@ -37,13 +51,15 @@ void main() async {
 }
 ```
 
-The above process is not only redundant, but also unsafe from an implementation standpoint, as it requires writing a process for when the value associated with the key does not exist. It becomes even more complicated in the case of a list structure with multiple JSONs.
+The above process is not only redundant, but also unsafe from an implementation standpoint, as it requires writing a process for when the value associated with the key does not exist. It becomes even more complicated in the case of a list structure with multiple JSONs. **_With `JsonResponse`, the above implementation is no longer necessary!_**
 
-With `JsonResponse`, the above implementation is no longer necessary!
+In addition to `JsonResponse`, various other JSON-related libraries have been developed, and there are many interesting techniques that use annotations and type inference. **_However, I feel that those libraries are just complicating a simple problem with too many implementations and configuration files just to process the response returned from the API._**
 
-## 1.1. Introduction
+Therefore, `JsonResponse` does not require any tricky annotations or new configuration files. This library can be used in the same sense as the well-worn `JSONObject` in Java. **_It is a horizontal thinking of a dead technology, but it is the easiest and safest algorithm when dealing with JSON response._**
 
-### 1.1.1. Install Library
+## 1.2. Introduction
+
+### 1.2.1. Install Library
 
 **_With Dart:_**
 
@@ -57,13 +73,13 @@ With `JsonResponse`, the above implementation is no longer necessary!
  flutter pub add json_response
 ```
 
-### 1.1.2. Import It
+### 1.2.2. Import It
 
 ```dart
 import 'package:json_response/json_response.dart';
 ```
 
-### 1.1.3. Use JsonResponse
+### 1.2.3. Use JsonResponse
 
 ```dart
 import 'package:http/http.dart';
@@ -129,7 +145,107 @@ void main() {
 }
 ```
 
-## 1.2. License
+## 1.3. Details
+
+### 1.3.1. Json
+
+The `Json` class represents a single JSON structure like below.
+
+```json
+{
+  "key1": "string_value",
+  "key2": 0,
+  "key3": 0.0,
+  "key4": true,
+  "key5": {
+    "nested_key1": "string_value"
+  },
+  "key6": [
+    {
+      "nested_key2": "string_value",
+      "nested_key3": 1
+    },
+    {
+      "nested_key2": "string_value",
+      "nested_key3": 1
+    }
+  ],
+  "key7": ["value1", "value2"]
+}
+```
+
+#### 1.3.1.1. Create Instance
+
+`Json` class provides 2 patterns for creating instances.
+
+| Constructor                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- |
+| [from({required Response response})](https://pub.dev/documentation/json_response/latest/json_response/Json/Json.from.html) |
+| [empty()](https://pub.dev/documentation/json_response/latest/json_response/Json/Json.empty.html)                           |
+
+The `from` constructor takes the `Response` object returned from the `http` package as an argument and safely parses the JSON string contained in the response. JSON strings will be parsed in UTF-8 format.
+
+If you need an empty `Json`, you can get an empty `Json` object from the `empty` constructor instead of null.
+
+#### 1.3.1.2. Get Value
+
+The `Json` class provides safe and convenient ways to retrieve values set in JSON.
+
+| Method                                                                                                                                               |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [getString({required String key, String defaultValue = ''})](https://pub.dev/documentation/json_response/latest/json_response/Json/getString.html)   |
+| [getInt({required String key, String defaultValue = -1})](https://pub.dev/documentation/json_response/latest/json_response/Json/getInt.html)         |
+| [getDouble({required String key, String defaultValue = -1.0})](https://pub.dev/documentation/json_response/latest/json_response/Json/getDouble.html) |
+| [getBool({required String key, String defaultValue = false})](https://pub.dev/documentation/json_response/latest/json_response/Json/getBool.html)    |
+
+By using the above methods, you can safely retrieve values with guaranteed types.
+
+If the specified key does not exist or the value is null, the default value will be returned beforehand, but if you want to specify an arbitrary default value, set the `defaultValue` for each method.
+
+#### 1.3.1.3. Get Multiple Values
+
+JSON may have an array of values associated with the keys, and the `Json` class provides features for retrieving all the values in such an array at once in a list format.
+
+If there is no value associated with the key, an empty list will be returned.
+
+| Method                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------ |
+| [getStringValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getStringValues.html) |
+| [getIntValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getIntValues.html)       |
+| [getDoubleValues({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getDoubleValues.html) |
+
+#### 1.3.1.4. Get Child JSON
+
+JSON may be set to the child's JSON as the value associated with the key, and the `Json` class provides a safe and easy way to retrieve the nested JSON associated with a key.
+
+If there is no value associated with the key, an empty `Json` will be returned.
+
+| Method                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------ |
+| [get({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/get.html) |
+
+#### 1.3.1.5. Get JSON Array
+
+JSON may be set to an array with multiple JSON as the value associated with the key, and the `Json` class provides a safe and easy way to retrieve the nested JSON Array associated with a key.
+
+If there is no value associated with the key, an empty `JsonArray` will be returned.
+
+| Method                                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------------------- |
+| [getArray({required String key})](https://pub.dev/documentation/json_response/latest/json_response/Json/getArray.html) |
+
+#### 1.3.1.6. Iteration
+
+The `Json` class provides convenient features for iterating over JSON objects.
+
+| Property / Method                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------- |
+| [keySet](https://pub.dev/documentation/json_response/latest/json_response/Json/keySet.html)                                            |
+| [forEach(void action(String key, dynamic value)) ](https://pub.dev/documentation/json_response/latest/json_response/Json/forEach.html) |
+
+### 1.3.2. JsonArray
+
+## 1.4. License
 
 ```license
 Copyright (c) 2021, Kato Shinya. All rights reserved.
@@ -137,7 +253,7 @@ Use of this source code is governed by a
 BSD-style license that can be found in the LICENSE file.
 ```
 
-## 1.3. More Information
+## 1.5. More Information
 
 `JsonResponse` was designed and implemented by **_Kato Shinya_**.
 
