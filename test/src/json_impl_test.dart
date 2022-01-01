@@ -20,12 +20,13 @@ void main() {
   _testKeySet();
 
   _testGetStringValue();
+  _testGetStringValues();
   _testGetIntValue();
+  _testGetIntValues();
   _testGetDoubleValue();
   _testGetDoubleValues();
   _testGetBoolValue();
-  _testGetStringValues();
-  _testGetIntValues();
+  _testGetBoolValues();
 
   _testGetJsonFromJsonString();
   _testGetJsonFromJsonMap();
@@ -151,6 +152,17 @@ void _testGetBoolValue() {
     expect(json.getBool(key: 'test'), true);
     expect(json.getBool(key: 'not_exist'), false);
     expect(json.getBool(key: 'not_exist', defaultValue: true), true);
+  });
+}
+
+void _testGetBoolValues() {
+  test('Test getBoolValues.', () {
+    final json = JsonImpl.fromMap(value: {
+      'test': [true, false, true]
+    });
+    expect(json.isEmpty, false);
+    expect(json.getBoolValues(key: 'test'), [true, false, true]);
+    expect(json.getBoolValues(key: 'not_exist'), []);
   });
 }
 

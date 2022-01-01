@@ -122,6 +122,9 @@ abstract class Json {
   /// Returns the double value list associated with the [key], otherwise empty list.
   List<double> getDoubleValues({required String key});
 
+  /// Returns the bool value list associated with the [key], otherwise empty list.
+  List<bool> getBoolValues({required String key});
+
   /// Returns true if json contains key associated with [key] passed as an argument.
   bool containsKey({required String key});
 

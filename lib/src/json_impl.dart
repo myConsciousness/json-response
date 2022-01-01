@@ -87,42 +87,25 @@ class JsonImpl implements Json {
   }
 
   @override
-  List<String> getStringValues({required String key}) {
-    if (!containsKey(key: key)) {
-      return <String>[];
-    }
-
-    final values = <String>[];
-
-    for (final value in _resource[key]) {
-      values.add(value);
-    }
-
-    return values;
-  }
+  List<String> getStringValues({required String key}) =>
+      _getValues<String>(key: key);
 
   @override
-  List<int> getIntValues({required String key}) {
-    if (!containsKey(key: key)) {
-      return <int>[];
-    }
-
-    final values = <int>[];
-
-    for (final value in _resource[key]) {
-      values.add(value);
-    }
-
-    return values;
-  }
+  List<int> getIntValues({required String key}) => _getValues<int>(key: key);
 
   @override
-  List<double> getDoubleValues({required String key}) {
+  List<double> getDoubleValues({required String key}) =>
+      _getValues<double>(key: key);
+
+  @override
+  List<bool> getBoolValues({required String key}) => _getValues<bool>(key: key);
+
+  List<R> _getValues<R>({required String key}) {
     if (!containsKey(key: key)) {
-      return <double>[];
+      return [];
     }
 
-    final values = <double>[];
+    final values = <R>[];
 
     for (final value in _resource[key]) {
       values.add(value);

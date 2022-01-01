@@ -319,6 +319,10 @@ If you also need the index number in the iteration process, you can use `enumera
 
 The JSON Array may have multiple nested JSON Arrays. And if you don't like the nested structure of that JSON Array, you can use the `flatten` method to flatten the nested structure.
 
+| Method                                                                                               |
+| ---------------------------------------------------------------------------------------------------- |
+| [flatten()](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/flatten.html) |
+
 ## 1.4. License
 
 ```license
