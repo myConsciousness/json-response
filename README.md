@@ -27,6 +27,9 @@
       - [1.3.1.5. Get JSON Array](#1315-get-json-array)
       - [1.3.1.6. Iteration](#1316-iteration)
     - [1.3.2. JsonArray](#132-jsonarray)
+      - [1.3.2.1. Create Instance](#1321-create-instance)
+      - [1.3.2.2. Get JSON](#1322-get-json)
+      - [1.3.2.3. Get Nested JSON Array](#1323-get-nested-json-array)
   - [1.4. License](#14-license)
   - [1.5. More Information](#15-more-information)
 
@@ -244,6 +247,56 @@ The `Json` class provides convenient features for iterating over JSON objects.
 | [forEach(void action(String key, dynamic value)) ](https://pub.dev/documentation/json_response/latest/json_response/Json/forEach.html) |
 
 ### 1.3.2. JsonArray
+
+The `JsonArray` class represents a multiple JSON structure like below.
+
+```json
+[
+  {
+    "nested_key2": "string_value",
+    "nested_key3": 1
+  },
+  {
+    "nested_key2": "string_value",
+    "nested_key3": 1
+  }
+]
+```
+
+#### 1.3.2.1. Create Instance
+
+`Json` class provides 2 patterns for creating instances.
+
+| Constructor                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------ |
+| [from({required Response response})](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/JsonArray.from.html) |
+| [empty()](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/JsonArray.empty.html)                           |
+
+The `from` constructor takes the `Response` object returned from the `http` package as an argument and safely parses the JSON string contained in the response. JSON strings will be parsed in UTF-8 format.
+
+If you need an empty `Json`, you can get an empty `Json` object from the `empty` constructor instead of null.
+
+#### 1.3.2.2. Get JSON
+
+When a JSON Array contains multiple JSON, the `get` method can be used to get the JSON associated with the index specified in the argument as a `Json` object.
+
+> **_Note:_**</br>
+> Whenever a non-existent index number is specified as an argument, an exception will be raised indicating that the specified exception is out of range.
+
+| Method                                                                                                           |
+| ---------------------------------------------------------------------------------------------------------------- |
+| [get({required int index})](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/get.html) |
+
+#### 1.3.2.3. Get Nested JSON Array
+
+When a JSON Array contains nested JSON Array, the `getArray` method can be used to get the JSON associated with the index specified in the argument as a `JsonArray` object.
+
+> **_Note:_**</br>
+> Whenever a non-existent index number is specified as an argument, an exception will be raised indicating that the specified exception is out of range.
+
+| Method                                                                                                                     |
+| -------------------------------------------------------------------------------------------------------------------------- |
+| [getArray({required int index})](https://pub.dev/documentation/json_response/latest/json_response/JsonArray/getArray.html) |
 
 ## 1.4. License
 
