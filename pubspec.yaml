@@ -1,6 +1,6 @@
 name: json_response
 description: A most easily usable JSON response wrapper library in Dart. With JsonResponse, you can easily and safely handle JSON response on your application.
-version: 2.2.0
+version: 2.3.0
 homepage: https://github.com/myConsciousness/json-response
 
 environment:
@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   http: ^0.13.4
+  xml2json: ^5.3.2
 
 dev_dependencies:
   lints: ^1.0.0

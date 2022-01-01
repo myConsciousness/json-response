@@ -7,6 +7,7 @@ import 'dart:convert';
 
 // Package imports:
 import 'package:http/http.dart';
+import 'package:xml2json/xml2json.dart';
 
 // Project imports:
 import 'package:json_response/src/json.dart';
@@ -16,7 +17,25 @@ import 'package:json_response/src/json_array_impl.dart';
 class JsonImpl implements Json {
   JsonImpl.from({
     required Response response,
-  }) : _resource = jsonDecode(utf8.decode(response.bodyBytes));
+  }) {
+    final responseBody = utf8.decode(response.bodyBytes).trim();
+
+    if (responseBody.startsWith('<?xml')) {
+      final converter = Xml2Json();
+      converter.parse(responseBody);
+      _resource = jsonDecode(converter.toParker());
+      return;
+    } else if (responseBody.startsWith('{')) {
+      _resource = jsonDecode(responseBody);
+      return;
+    }
+
+    throw FormatException('''Unsupported format was detected.
+    The response body format supported by the Json class is JSON or XML.
+
+    Response body => $responseBody
+    ''');
+  }
 
   /// Returns the new instance of [JsonImpl] from json map.
   JsonImpl.fromMap({
@@ -29,7 +48,7 @@ class JsonImpl implements Json {
   }) : _resource = jsonDecode(value);
 
   /// The json
-  final Map<String, dynamic> _resource;
+  late Map<String, dynamic> _resource;
 
   @override
   int get length => _resource.length;

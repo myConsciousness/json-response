@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // Package imports:
+import 'package:http/http.dart';
 import 'package:test/test.dart';
 
 // Project imports:
@@ -31,6 +32,7 @@ void main() {
   _testGetJsonFromJsonString();
   _testGetJsonFromJsonMap();
 
+  _testXmlResponse();
   _integrationTest();
 }
 
@@ -211,6 +213,48 @@ void _testGetJsonFromJsonMap() {
     final childJson = json.get(key: 'test1');
     expect(childJson.isEmpty, false);
     expect(childJson.getBool(key: 'test2'), true);
+  });
+}
+
+void _testXmlResponse() {
+  test('Test when response body was XML.', () {
+    final json = JsonImpl.from(
+      response: Response('''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <records>
+      <record>
+          <key>1</key>
+          <value>1</value>
+      </record>
+      <record>
+          <key>2</key>
+          <value>2</value>
+      </record>
+      <record>
+          <key>3</key>
+          <value>3</value>
+      </record>
+      <record>
+          <key>4</key>
+          <value>4</value>
+      </record>
+      <record>
+          <key>5</key>
+          <value>5</value>
+      </record>
+    </records>
+    ''', 200),
+    );
+
+    expect(json.isEmpty, false);
+    expect(json.isNotEmpty, true);
+
+    final records = json.get(key: 'records');
+    expect(records.isNotEmpty, true);
+
+    final record = records.getArray(key: 'record');
+    expect(record.isNotEmpty, true);
+    expect(record.length, 5);
   });
 }
 

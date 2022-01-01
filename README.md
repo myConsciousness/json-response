@@ -179,6 +179,25 @@ The `Json` class represents a single JSON structure like below.
 }
 ```
 
+Also, the `Json` class can automatically detect and convert the following XML format responses into JSON format inside the `from` constructor. It uses a third party library [xml2json](https://pub.dev/packages/xml2json) to perform this automatic XML to JSON conversion.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<records>
+  <record>
+      <key>1</key>
+      <value>1</value>
+  </record>
+  <record>
+      <key>2</key>
+      <value>2</value>
+  </record>
+</records>
+```
+
+> **_Note_**</br>
+> When xml2json converts XML to JSON, it uses the [Parker](https://pub.dev/packages/xml2json#parker) method.
+
 #### 1.3.1.1. Create Instance
 
 `Json` class provides 2 patterns for creating instances.
