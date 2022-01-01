@@ -59,7 +59,7 @@ void main() {
   print(jsonArray.get(index: 0));
 
   // If you don't like the structure of several nested lists,
-  // you can use the toFlat method to make the nested structure flat.
+  // you can use the flatten method to make the nested structure flat.
   // This method returns a new flattened JsonArray.
-  print(jsonArray.toFlat());
+  print(jsonArray.flatten());
 }

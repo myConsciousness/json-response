@@ -78,15 +78,15 @@ class JsonArrayImpl implements JsonArray {
   }
 
   @override
-  JsonArray toFlat() {
-    final flatted = [];
+  JsonArray flatten() {
+    final results = [];
 
     _retrieveJsonRecursively(
       nestedJson: _resources,
-      results: flatted,
+      results: results,
     );
 
-    return JsonArrayImpl.fromList(values: flatted);
+    return JsonArrayImpl.fromList(values: results);
   }
 
   void _retrieveJsonRecursively({

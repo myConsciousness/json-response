@@ -1,5 +1,11 @@
 # Release Note
 
+## 2.1.1
+
+- Improved documentation.
+- Fixed typo in `enumerateArray` method.
+- Renamed the `toFlat` method of the `JsonArray` class to `flatten`.
+
 ## 2.1.0
 
 - Improved documentation.

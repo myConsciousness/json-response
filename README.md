@@ -31,6 +31,7 @@
       - [1.3.2.2. Get JSON](#1322-get-json)
       - [1.3.2.3. Get Nested JSON Array](#1323-get-nested-json-array)
       - [1.3.2.4. Iteration](#1324-iteration)
+      - [1.3.2.5. Flatten A Nested JSON Array](#1325-flatten-a-nested-json-array)
   - [1.4. License](#14-license)
   - [1.5. More Information](#15-more-information)
 
@@ -143,9 +144,9 @@ void main() {
   print(jsonArray.get(index: 0));
 
   // If you don't like the structure of several nested lists,
-  // you can use the toFlat method to make the nested structure flat.
+  // you can use the flatten method to make the nested structure flat.
   // This method returns a new flattened JsonArray.
-  print(jsonArray.toFlat());
+  print(jsonArray.flatten());
 }
 ```
 
@@ -313,6 +314,10 @@ The `JsonArray` class provides convenient features for iterating over JSON Array
 You can use the `forEach` method if the object contained in the JSON Array is a JSON object, and you can use the `forEachArray` method if it is a nested JSON Array.
 
 If you also need the index number in the iteration process, you can use `enumerate` or `enumerateArray` methods.
+
+#### 1.3.2.5. Flatten A Nested JSON Array
+
+The JSON Array may have multiple nested JSON Arrays. And if you don't like the nested structure of that JSON Array, you can use the `flatten` method to flatten the nested structure.
 
 ## 1.4. License
 

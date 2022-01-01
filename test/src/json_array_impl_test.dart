@@ -87,7 +87,7 @@ void main() {
 
     expect(jsonArray.getArray(index: 1).get(index: 0).getString(key: 'key2'),
         'value2');
-    expect(jsonArray.toFlat().toString(),
+    expect(jsonArray.flatten().toString(),
         '[{key1: value1, key2: value2}, {key1: value1, key2: value2}, {key1: value1, key2: value2}]');
   });
 }
