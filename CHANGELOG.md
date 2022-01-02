@@ -1,5 +1,9 @@
 # Release Note
 
+## 2.3.1
+
+- Fixed README.
+
 ## 2.3.0
 
 - Improved documentation.
