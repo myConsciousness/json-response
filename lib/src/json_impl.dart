@@ -84,10 +84,10 @@ class JsonImpl implements Json {
   @override
   Json get({required String key}) {
     if (!containsKey(key: key)) {
-      return JsonImpl.fromMap(value: {});
+      return JsonImpl.fromMap(value: <String, dynamic>{});
     }
 
-    final value = _resource[key] ?? {};
+    final value = _resource[key] ?? <String, dynamic>{};
 
     if (value is String) {
       return JsonImpl.fromString(value: value);

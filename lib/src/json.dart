@@ -62,7 +62,7 @@ abstract class Json {
       JsonImpl.from(response: response);
 
   /// Returns the new instance of empty [Json].
-  factory Json.empty() => JsonImpl.fromMap(value: {});
+  factory Json.empty() => JsonImpl.fromMap(value: <String, dynamic>{});
 
   /// Returns the length of this json.
   int get length;
